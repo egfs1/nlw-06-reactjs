@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
 import { database } from "../services/firebase"
 
@@ -31,19 +30,19 @@ type FirebaseQuestions = Record<string,{
 
 export function useRoom(roomId: string){
     const {user} = useAuth()
-    const navigate = useNavigate()
     const [questions,setQuestions] = useState<IQuestion[]>([])
     const [title, setTitle] = useState('')
-
+    const [isAdmin, setIsAdmin] = useState<boolean | undefined>(undefined)
+    const [isClosed, setIsClosed] = useState(false)
+    
     useEffect(()=>{
         const roomRef = database.ref(`rooms/${roomId}`)
-
-
         roomRef.on('value', room => {
             const databaseRoom = room.val()
-            if (databaseRoom == null || databaseRoom.closedAt){
-                return navigate('/')
+            if (databaseRoom === null || databaseRoom.closedAt){
+                setIsClosed(true)
             }
+            setIsAdmin(user?.id === databaseRoom.authorId)
             const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {}
             const parsedQuestions = Object.entries(firebaseQuestions).map(([key,value]) => {
                 return {
@@ -56,7 +55,7 @@ export function useRoom(roomId: string){
                     likeId: Object.entries(value.likes ?? {}).find(([key, like]) => like.authorId === user?.id)?.[0],
                 }
             })
-
+            
             setTitle(databaseRoom.title)
             setQuestions(parsedQuestions)
         })
@@ -66,5 +65,5 @@ export function useRoom(roomId: string){
         }
     }, [roomId, user?.id])
 
-    return {questions, title}
+    return {questions, title, isAdmin, isClosed, user}
 }
