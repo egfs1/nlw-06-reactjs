@@ -44,9 +44,9 @@ $ yarn start
 ```
 O app estará disponível no seu browser pelo endereço http://localhost:3000.
 
-Para adicionar as variáveis ambientes, é necessario criar uma conta no [Firebase](https://firebase.google.com/) e um projeto, após isso ir em: Configurações do projeto -> Geral -> Seus Aplicativos.<br> Depois adicionar as variáveis em um arquivo **.env.local**
+Para adicionar as variáveis ambientes, é necessario criar uma conta no [Firebase](https://firebase.google.com/), um projeto e um Web App. Depois adicionar as variáveis em um arquivo **.env.local**
 
-```js
+```
 REACT_APP_API_KEY=
 REACT_APP_AUTH_DOMAIN=
 REACT_APP_DATABASE_URL=
