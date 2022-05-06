@@ -10,6 +10,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     env:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
       REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
       REACT_APP_DATABASE_URL: ${{ secrets.REACT_APP_DATABASE_URL }}
