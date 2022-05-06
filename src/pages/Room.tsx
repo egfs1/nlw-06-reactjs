@@ -25,10 +25,6 @@ export function Room(){
         navigate(`/`)
     }
 
-    if(isAdmin){
-        navigate(`/admin/rooms/${roomId}`)
-    }
-
     async function handleSendQuestion(event){
         event.preventDefault()
 
@@ -72,7 +68,10 @@ export function Room(){
             <header>
                 <div className="content">
                     <img onClick={()=> navigate('/')} src={logoImg} alt="" />
-                    <RoomCode code={roomId}/>
+                    <div>
+                        {isAdmin && <Button onClick={() => navigate(`/admin/rooms/${roomId}`)}>Gerenciar</Button>}
+                        <RoomCode code={roomId}/>
+                    </div>
                 </div>
             </header>
 

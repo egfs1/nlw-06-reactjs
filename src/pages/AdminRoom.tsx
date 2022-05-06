@@ -22,12 +22,12 @@ export function AdminRoom(){
         navigate(`/`)
     }
 
-    if(isAdmin!== undefined && !isAdmin){
+    if(isAdmin !== undefined && !isAdmin){
         navigate(`/rooms/${roomId}`)
     }
     
     async function handleEndRoom(){
-        database.ref(`rooms/${roomId}`).update({
+        await database.ref(`rooms/${roomId}`).update({
             closedAt: new Date()
         })
 
@@ -61,6 +61,7 @@ export function AdminRoom(){
                 <div className="content">
                     <img onClick={()=> navigate('/')} src={logoImg} alt="" />
                     <div>
+                        <Button onClick={()=> navigate(`/rooms/${roomId}`)}>Voltar</Button>
                         <RoomCode code={roomId}/>
                         <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
                     </div>
@@ -75,7 +76,7 @@ export function AdminRoom(){
                 <div className="question-list">
                     {questions.length === 0 ? (
                         <div className="questions-empty">
-                            <h2>Sem Respostas</h2>
+                            <h2>Sem Perguntas :(</h2>
                         </div>
                     ): (<></>)}
                     {questions.map((question,key) =>{
