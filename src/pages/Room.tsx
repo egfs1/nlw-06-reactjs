@@ -7,6 +7,7 @@ import { useState } from "react";
 import { database } from "../services/firebase";
 import { Question } from "../components/Question";
 import { useRoom } from "../contexts/useRoom";
+import { FiSliders } from "react-icons/fi"
 import cx from 'classnames'
 
 type RoomParams = {
@@ -62,14 +63,21 @@ export function Room(){
         
     }
 
+    function handleGoToLoginPage(){
+        navigate('/')
+    }
+
     return (
 
         <div id="page-room">
             <header>
                 <div className="content">
                     <img onClick={()=> navigate('/')} src={logoImg} alt="" />
+                    
                     <div>
-                        {isAdmin && <Button onClick={() => navigate(`/admin/rooms/${roomId}`)}>Gerenciar</Button>}
+                        <div className="div-icon">
+                            {isAdmin && <button onClick={() => navigate(`/admin/rooms/${roomId}`)}><FiSliders className="icon"/></button>}
+                        </div>
                         <RoomCode code={roomId}/>
                     </div>
                 </div>
@@ -94,7 +102,7 @@ export function Room(){
                                 <span>{user.name}</span>
                             </div>
                         ): (
-                            <span>Para enviar uma pergunta, <button>faça seu login</button></span>
+                            <span>Para enviar uma pergunta, <button onClick={handleGoToLoginPage}>faça seu login</button></span>
                         )}
                         <Button type="submit" disabled={!user}>Enviar uma pergunta</Button>
                     </div>       

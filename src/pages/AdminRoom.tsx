@@ -2,11 +2,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../components/Button";
 import logoImg from "../assets/images/logo.svg"
 import '../styles/room.scss'
-import { RoomCode } from "../components/RoomCode";
 import { Question } from "../components/Question";
 import { useRoom } from "../contexts/useRoom";
 import deleteImg from '../assets/images/delete.svg'
 import { database } from "../services/firebase";
+import { FiSliders } from "react-icons/fi";
 
 type RoomParams = {
     id: string
@@ -61,8 +61,9 @@ export function AdminRoom(){
                 <div className="content">
                     <img onClick={()=> navigate('/')} src={logoImg} alt="" />
                     <div>
-                        <Button onClick={()=> navigate(`/rooms/${roomId}`)}>Voltar</Button>
-                        <RoomCode code={roomId}/>
+                        <div className="div-icon">
+                            {isAdmin && <button onClick={() => navigate(`/rooms/${roomId}`)}><FiSliders className="icon"/></button>}
+                        </div>
                         <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
                     </div>
                 </div>

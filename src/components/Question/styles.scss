@@ -44,6 +44,7 @@
 
     footer {
         display: flex;
+        text-align: center;
         justify-content:space-between;
         align-items: center;
         margin-top: 24px;
@@ -59,9 +60,11 @@
             }
 
             span {
-                margin-left: 8px;
+                display: flex;
+                align-items: center;
                 color: #737380;
                 font-size: 14px;
+                margin: -6px;
             }
         }
 
